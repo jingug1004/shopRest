@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mappers.productMapper">
+
+    <select id="bestResponseGET" resultType="kr.re.vo.BestResponse">
+        -- bestResponseGET @productMapper.xml
+        SELECT NOW()
+    </select>
+
+    <select id="mainFirstBanner" resultType="kr.re.vo.MainFirstBanner">
+        -- mainFirstBanner @productMapper.xml
+        select * from app_first_banner where 1 = 1
+    </select>
+
+    <select id="product" resultType="kr.re.vo.Product">
+        -- product @productMapper.xml
+        select * from app_product where 1 = 1
+    </select>
+
+    <select id="productDelivery" resultType="kr.re.vo.ProductDelivery">
+        -- productDelivery @productMapper.xml
+        select * from app_product
+    </select>
+
+    <select id="brand" resultType="kr.re.vo.Brand">
+        -- productDelivery @productMapper.xml
+        select B.*
+        from app_product A
+             LEFT OUTER JOIN app_brand B ON A.brand_id = B.brand_id
+        WHERE 1 = 1
+          AND B.brand_id = #{num}
+          LIMIT 1
+    </select>
+
+</mapper>
