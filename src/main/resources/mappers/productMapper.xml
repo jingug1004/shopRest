@@ -19,6 +19,11 @@
         select * from app_product where 1 = 1
     </select>
 
+    <select id="productNum" resultType="int">
+        -- product @productMapper.xml
+        select brand_id from app_product where 1 = 1 limit 1
+    </select>
+
     <select id="productDelivery" resultType="kr.re.vo.ProductDelivery">
         -- productDelivery @productMapper.xml
         select * from app_product
@@ -32,6 +37,16 @@
         WHERE 1 = 1
           AND B.brand_id = #{num}
           LIMIT 1
+    </select>
+
+    <select id="allBrandGET" resultType="kr.re.vo.Brand">
+        -- allBrandGET @productMapper.xml
+        select B.*
+        from app_product A
+             LEFT OUTER JOIN app_brand B ON A.brand_id = B.brand_id
+        WHERE 1 = 1
+--           AND B.brand_id = #{num}
+--           LIMIT 1
     </select>
 
 </mapper>

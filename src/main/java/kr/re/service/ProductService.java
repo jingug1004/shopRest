@@ -1,12 +1,16 @@
 package kr.re.service;
 
 import kr.re.dao.ProductDAO;
-import kr.re.vo.BestResponse;
+import kr.re.vo.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ProductService {
@@ -16,14 +20,75 @@ public class ProductService {
     @Inject
     private ProductDAO productDAO;
 
+    @Inject
+    private ApplicationProps applicationProps;
+
     public BestResponse bestResponseGET() throws Exception { /* 베스트 상품 가져오기 */
 
         BestResponse bestResponse = new BestResponse();
+        List product01 = new ArrayList<>();
 
-        bestResponse.setFirstBanner(productDAO.mainFirstBanner());
-        bestResponse.setProductList(productDAO.product());
+        ProductDelivery productDelivery = new ProductDelivery();
+        Brand brand = new Brand();
+
+//        Product product0202 = new Product();
+
+        List<Product> productList = productDAO.product();
+
+//        productSize.subList();
+
+//        Connection conn = DriverManager.getConnection(url, user, password);
+
+        System.out.println("lll~~~ 00 : " + applicationProps.getUrl());
+
+        String propUrl = applicationProps.getUrl();
+        String propUserName = applicationProps.getUsername();
+        String propPassword = applicationProps.getPassword();
+        String propDriverClassName = applicationProps.getDriverClassName();
+
+        Class.forName(propDriverClassName);
+        Connection conn = DriverManager.getConnection(propUrl, propUserName, propPassword);
+
+//        ArrayList arrayList = XDB.call(new Object[]{"SP_TEST", 3}, conn);
+
+        for (int i = 0; i < productList.size(); i++) {
+
+//            int j = productDAO.productNum();
+            System.out.println("lll~~~ 01 : " + productList.get(i).getBrandId());
+
+
+//            Map<String, Object> map = new HashMap<>();
+//            map.put("brand", productDAO.brand(j));
+
+//            productList.remove("brand");
+
+//            System.out.println(map.put("brand", productDAO.brand(j)));
+
+//            productList.add(map.get("brand"));
+//            System.out.println(map.get("brand"));
+        }
+
+//        product01.add(product0202);
+
+//        bestResponse.setFirstBanner(productDAO.mainFirstBanner());
+        bestResponse.setProductList(productList);
+
+        /*  */
+
+//        bestResponse.setFirstBanner(productDAO.mainFirstBanner());
+//        bestResponse.setProductList(productDAO.product());
 
         return bestResponse;
+    }
+
+    public CategoryResponse categoryResponseGET() throws Exception {
+
+        CategoryResponse categoryResponse = new CategoryResponse();
+
+//        categoryResponse.setBrandList();
+//        categoryResponse.setCategoryList();
+
+        return null;
     }
 
 //    @Override

@@ -1,7 +1,6 @@
 package kr.re.dao;
 
 import kr.re.vo.Brand;
-import kr.re.vo.MainFirstBanner;
 import kr.re.vo.Product;
 import kr.re.vo.ProductDelivery;
 import org.apache.ibatis.session.SqlSession;
@@ -42,12 +41,16 @@ public class ProductDAO {
     private static String namespace = "mappers.productMapper";
 
     /* 베스트 상품 가져오기 */
-    public List<MainFirstBanner> mainFirstBanner() throws Exception {
+    public List mainFirstBanner() throws Exception {
         return sqlSession.selectList(namespace + ".mainFirstBanner");
     }
 
     public List<Product> product() throws Exception {
         return sqlSession.selectList(namespace + ".product");
+    }
+
+    public int productNum() throws Exception {
+        return sqlSession.selectOne(namespace + ".productNum");
     }
 
     public ProductDelivery productDelivery() throws Exception {
@@ -58,6 +61,14 @@ public class ProductDAO {
         return sqlSession.selectOne(namespace + ".brand", num);
     }
     /* // 베스트 상품 가져오기 */
+
+    /* 카테고리 가져오기 */
+//    public Brand allBrandGET() throws Exception {
+//        return sqlSession.selectList(namespace + ".allBrandGET");
+//    }
+
+
+    /* // 카테고리 가져오기 */
 
 
 }
