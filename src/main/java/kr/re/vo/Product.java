@@ -32,7 +32,7 @@ public class Product {
     private Integer sale;
     private Integer salePrice;
     private Integer score;
-    private User seller; /* 판매자 */
+    private User sellerUser; /* 판매자 */
     private Integer star1;
     private Integer star2;
     private Integer star3;
@@ -43,8 +43,10 @@ public class Product {
     private Integer timeSale;
     private Integer viewCount;
     private Integer autoSale;
+
     private Integer brandId;
     private Integer deliveryId;
+    private String seller;
 
     private String status;     // HttpStatus
     private String message;     // Http Default Message

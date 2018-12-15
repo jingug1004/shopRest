@@ -17,26 +17,50 @@
     <select id="product" resultType="kr.re.vo.Product">
         -- product @productMapper.xml
         select * from app_product where 1 = 1
+        limit 0, 10
+    </select>
+
+    <select id="productOne" resultType="kr.re.vo.Product">
+        -- productOne @productMapper.xml
+        select * from app_product where 1 = 1 LIMIT #{rownum}, 1
+    </select>
+
+    <select id="brandOne" resultType="kr.re.vo.Brand">
+        -- brandOne @productMapper.xml
+        select B.*
+        from app_product A
+             LEFT OUTER JOIN app_brand B ON A.brand_id = B.brand_id
+        WHERE 1 = 1
+          AND B.brand_id = #{brandNum}
+          LIMIT 1
+    </select>
+
+    <select id="userOne" resultType="kr.re.vo.User">
+        -- userOne @productMapper.xml
+        SELECT * FROM app_user WHERE 1 = 1
+        AND user_id = #{sellerId}
+    </select>
+
+    <select id="productDeliveryOne" resultType="kr.re.vo.ProductDelivery">
+        -- productDeliveryOne @productMapper.xml
+        SELECT * FROM app_product_delivery WHERE 1 = 1
+        AND delivery_id = #{productDeliveryCode}
+    </select>
+
+    <select id="deliveryCompanyOne" resultType="kr.re.vo.DeliveryCompany">
+        -- deliveryCompanyOne @productMapper.xml
+        SELECT * FROM app_delivery_company WHERE 1 = 1
+        AND CODE = #{deliveryCompanyCode}
     </select>
 
     <select id="productNum" resultType="int">
-        -- product @productMapper.xml
+        -- productNum @productMapper.xml
         select brand_id from app_product where 1 = 1 limit 1
     </select>
 
     <select id="productDelivery" resultType="kr.re.vo.ProductDelivery">
         -- productDelivery @productMapper.xml
         select * from app_product
-    </select>
-
-    <select id="brand" resultType="kr.re.vo.Brand">
-        -- productDelivery @productMapper.xml
-        select B.*
-        from app_product A
-             LEFT OUTER JOIN app_brand B ON A.brand_id = B.brand_id
-        WHERE 1 = 1
-          AND B.brand_id = #{num}
-          LIMIT 1
     </select>
 
     <select id="allBrandGET" resultType="kr.re.vo.Brand">

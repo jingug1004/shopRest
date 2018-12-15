@@ -7,8 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,54 +22,57 @@ public class ProductService {
     private ApplicationProps applicationProps;
 
     public BestResponse bestResponseGET() throws Exception { /* 베스트 상품 가져오기 */
-
         BestResponse bestResponse = new BestResponse();
-        List product01 = new ArrayList<>();
-
-        ProductDelivery productDelivery = new ProductDelivery();
-        Brand brand = new Brand();
-
-//        Product product0202 = new Product();
-
         List<Product> productList = productDAO.product();
-
-//        productSize.subList();
 
 //        Connection conn = DriverManager.getConnection(url, user, password);
 
-        System.out.println("lll~~~ 00 : " + applicationProps.getUrl());
-
-        String propUrl = applicationProps.getUrl();
-        String propUserName = applicationProps.getUsername();
-        String propPassword = applicationProps.getPassword();
-        String propDriverClassName = applicationProps.getDriverClassName();
-
-        Class.forName(propDriverClassName);
-        Connection conn = DriverManager.getConnection(propUrl, propUserName, propPassword);
+//        System.out.println("lll~~~ 00 : " + applicationProps.getUrl());
+//
+//        String propUrl = applicationProps.getUrl();
+//        String propUserName = applicationProps.getUsername();
+//        String propPassword = applicationProps.getPassword();
+//        String propDriverClassName = applicationProps.getDriverClassName();
+//
+//        Class.forName(propDriverClassName);
+//        Connection conn = DriverManager.getConnection(propUrl, propUserName, propPassword);
 
 //        ArrayList arrayList = XDB.call(new Object[]{"SP_TEST", 3}, conn);
 
+        List<Product> prod = new ArrayList<>();
+
         for (int i = 0; i < productList.size(); i++) {
+            int brandId = productList.get(i).getBrandId();
+            String sellerId = productList.get(i).getSeller();
+            int deliveryId = productList.get(i).getDeliveryId();
 
-//            int j = productDAO.productNum();
-            System.out.println("lll~~~ 01 : " + productList.get(i).getBrandId());
+            Product product = new Product();
+            product = productDAO.productOne(i);
 
+            Brand brand = new Brand();
+            brand = productDAO.brandOne(brandId);
+            product.setBrand(brand);
 
-//            Map<String, Object> map = new HashMap<>();
-//            map.put("brand", productDAO.brand(j));
+            User user = new User();
+            user = productDAO.userOne(sellerId);
+            product.setSellerUser(user);
 
-//            productList.remove("brand");
+            ProductDelivery productDelivery = new ProductDelivery();
+            productDelivery = productDAO.productDeliveryOne(deliveryId);
+            product.setProductDelivery(productDelivery);
 
-//            System.out.println(map.put("brand", productDAO.brand(j)));
+            DeliveryCompany deliveryCompany = new DeliveryCompany();
+            String companyString = product.getProductDelivery().getCompany();
+            int companyNo = Integer.parseInt(companyString);
+            deliveryCompany = productDAO.deliveryCompanyOne(companyNo);
+            productDelivery.setDeliveryCompany(deliveryCompany);
+            product.setProductDelivery(productDelivery);
 
-//            productList.add(map.get("brand"));
-//            System.out.println(map.get("brand"));
+            prod.add(product);
         }
 
-//        product01.add(product0202);
-
 //        bestResponse.setFirstBanner(productDAO.mainFirstBanner());
-        bestResponse.setProductList(productList);
+        bestResponse.setProductList(prod);
 
         /*  */
 

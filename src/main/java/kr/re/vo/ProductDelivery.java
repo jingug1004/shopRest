@@ -23,6 +23,7 @@ public class ProductDelivery {
     private Integer freeDelivery;
     private Integer shippingType;
     private String uniqueness;
+    private String company;
 
     private String status;     // HttpStatus
     private String message;     // Http Default Message

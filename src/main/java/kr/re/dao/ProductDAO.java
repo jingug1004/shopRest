@@ -1,8 +1,6 @@
 package kr.re.dao;
 
-import kr.re.vo.Brand;
-import kr.re.vo.Product;
-import kr.re.vo.ProductDelivery;
+import kr.re.vo.*;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,6 +47,26 @@ public class ProductDAO {
         return sqlSession.selectList(namespace + ".product");
     }
 
+    public Product productOne(int rownum) throws Exception {
+        return sqlSession.selectOne(namespace + ".productOne", rownum);
+    }
+
+    public Brand brandOne(int brandNum) throws Exception {
+        return sqlSession.selectOne(namespace + ".brandOne", brandNum);
+    }
+
+    public User userOne(String sellerId) throws Exception {
+        return sqlSession.selectOne(namespace + ".userOne", sellerId);
+    }
+
+    public ProductDelivery productDeliveryOne(int productDeliveryCode) throws Exception {
+        return sqlSession.selectOne(namespace + ".productDeliveryOne", productDeliveryCode);
+    }
+
+    public DeliveryCompany deliveryCompanyOne(int deliveryCompanyCode) throws Exception {
+        return sqlSession.selectOne(namespace + ".deliveryCompanyOne", deliveryCompanyCode);
+    }
+
     public int productNum() throws Exception {
         return sqlSession.selectOne(namespace + ".productNum");
     }
@@ -57,9 +75,6 @@ public class ProductDAO {
         return sqlSession.selectOne(namespace + ".productDelivery");
     }
 
-    public Brand brand(int num) throws Exception {
-        return sqlSession.selectOne(namespace + ".brand", num);
-    }
     /* // 베스트 상품 가져오기 */
 
     /* 카테고리 가져오기 */
