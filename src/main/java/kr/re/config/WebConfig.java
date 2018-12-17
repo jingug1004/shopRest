@@ -16,8 +16,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.builders.ResponseMessageBuilder;
-import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.service.ResponseMessage;
@@ -104,9 +102,9 @@ public class WebConfig implements WebMvcConfigurer {
     private ArrayList<ResponseMessage> getArrayList() {
         ArrayList<ResponseMessage> lists = new ArrayList<ResponseMessage>();
 
-        lists.add(new ResponseMessageBuilder().code(500).message("서버 에러").responseModel(new ModelRef("Error")).build());
-        lists.add(new ResponseMessageBuilder().code(403).message("권한 없음").responseModel(new ModelRef("Forbbiden")).build());
-        lists.add(new ResponseMessageBuilder().code(404).message("페이지 없음").responseModel(new ModelRef("NotFound")).build());
+//        lists.add(new ResponseMessageBuilder().code(500).message("서버 에러").responseModel(new ModelRef("Error")).build());
+//        lists.add(new ResponseMessageBuilder().code(403).message("권한 없음").responseModel(new ModelRef("Forbbiden")).build());
+//        lists.add(new ResponseMessageBuilder().code(404).message("페이지 없음").responseModel(new ModelRef("NotFound")).build());
 
         /* HTTP 상태코드 정리 */
         /* https://doublesprogramming.tistory.com/203 */

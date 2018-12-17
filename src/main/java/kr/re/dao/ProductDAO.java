@@ -43,6 +43,14 @@ public class ProductDAO {
         return sqlSession.selectList(namespace + ".mainFirstBanner");
     }
 
+    public MainFirstBanner mainFirstBannerOne(int rownum) throws Exception {
+        return sqlSession.selectOne(namespace + ".mainFirstBannerOne", rownum);
+    }
+
+    public Product productOneByParam(int productId) throws Exception {
+        return sqlSession.selectOne(namespace + ".productOneByParam", productId);
+    }
+
     public List<Product> product() throws Exception {
         return sqlSession.selectList(namespace + ".product");
     }
@@ -67,20 +75,12 @@ public class ProductDAO {
         return sqlSession.selectOne(namespace + ".deliveryCompanyOne", deliveryCompanyCode);
     }
 
-    public int productNum() throws Exception {
-        return sqlSession.selectOne(namespace + ".productNum");
-    }
-
     public ProductDelivery productDelivery() throws Exception {
         return sqlSession.selectOne(namespace + ".productDelivery");
     }
-
     /* // 베스트 상품 가져오기 */
 
     /* 카테고리 가져오기 */
-//    public Brand allBrandGET() throws Exception {
-//        return sqlSession.selectList(namespace + ".allBrandGET");
-//    }
 
 
     /* // 카테고리 가져오기 */

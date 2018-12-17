@@ -16,10 +16,10 @@ import java.util.List;
 @Data
 public class CategoryResponse {
 
-    private List<Brand> brandList;
-    private List<CategoryLvResult> categoryList;
-    //    private String message;
-    private String resultCode;
+    private List<Brand> brandList;                  // 브랜드
+    private List<CategoryLvResult> categoryList;    // 카테고리 등급
+//    private String message;
+//    private String resultCode;
     private String timestamp;
 
     private String status;     // HttpStatus

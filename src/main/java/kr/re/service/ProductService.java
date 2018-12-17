@@ -23,24 +23,50 @@ public class ProductService {
 
     public BestResponse bestResponseGET() throws Exception { /* 베스트 상품 가져오기 */
         BestResponse bestResponse = new BestResponse();
+        /* 36 하드코딩 */
+        List<MainFirstBanner> mainFirstBannerList = productDAO.mainFirstBanner();
         List<Product> productList = productDAO.product();
 
-//        Connection conn = DriverManager.getConnection(url, user, password);
+        List<MainFirstBanner> mainFirstBanner = new ArrayList<>();
+        for (int i = 0; i < mainFirstBannerList.size(); i++) {
+            MainFirstBanner mainFirstBannerOne = new MainFirstBanner();
 
-//        System.out.println("lll~~~ 00 : " + applicationProps.getUrl());
-//
-//        String propUrl = applicationProps.getUrl();
-//        String propUserName = applicationProps.getUsername();
-//        String propPassword = applicationProps.getPassword();
-//        String propDriverClassName = applicationProps.getDriverClassName();
-//
-//        Class.forName(propDriverClassName);
-//        Connection conn = DriverManager.getConnection(propUrl, propUserName, propPassword);
+            int productId = mainFirstBannerList.get(i).getProductId();
 
-//        ArrayList arrayList = XDB.call(new Object[]{"SP_TEST", 3}, conn);
+            mainFirstBannerOne = productDAO.mainFirstBannerOne(i);
+
+            Product productFirstBanner = new Product();
+            productFirstBanner = productDAO.productOneByParam(productId);
+
+            int brandId = productFirstBanner.getBrandId();
+            String sellerId = productFirstBanner.getSeller();
+            int deliveryId = productFirstBanner.getDeliveryId();
+
+            Brand brand = new Brand();
+            brand = productDAO.brandOne(brandId);
+            productFirstBanner.setBrand(brand);
+
+            User user = new User();
+            user = productDAO.userOne(sellerId);
+            productFirstBanner.setSellerUser(user);
+
+            ProductDelivery productDelivery = new ProductDelivery();
+            productDelivery = productDAO.productDeliveryOne(deliveryId);
+            productFirstBanner.setProductDelivery(productDelivery);
+
+            DeliveryCompany deliveryCompany = new DeliveryCompany();
+            String companyString = productFirstBanner.getProductDelivery().getCompany();
+            int companyNo = Integer.parseInt(companyString);
+            deliveryCompany = productDAO.deliveryCompanyOne(companyNo);
+            productDelivery.setDeliveryCompany(deliveryCompany);
+            productFirstBanner.setProductDelivery(productDelivery);
+
+            mainFirstBannerOne.setProduct(productFirstBanner);
+
+            mainFirstBanner.add(mainFirstBannerOne);
+        }
 
         List<Product> prod = new ArrayList<>();
-
         for (int i = 0; i < productList.size(); i++) {
             int brandId = productList.get(i).getBrandId();
             String sellerId = productList.get(i).getSeller();
@@ -71,13 +97,8 @@ public class ProductService {
             prod.add(product);
         }
 
-//        bestResponse.setFirstBanner(productDAO.mainFirstBanner());
+        bestResponse.setFirstBanner(mainFirstBanner);
         bestResponse.setProductList(prod);
-
-        /*  */
-
-//        bestResponse.setFirstBanner(productDAO.mainFirstBanner());
-//        bestResponse.setProductList(productDAO.product());
 
         return bestResponse;
     }
@@ -92,146 +113,10 @@ public class ProductService {
         return null;
     }
 
-//    @Override
-//    public BestResponse bestResponseGET() {
-//
-//        ProductRetroImpl client = new ProductRetroImpl();
-//
-//        BestResponse bestResponse = client.bestResponseGET();
-//
-//        return bestResponse;
-//
-//    }
-//
-//    @Override
-//    public CategoryResponse categoryResponseGET() {
-//
-//        ProductRetroImpl client = new ProductRetroImpl();
-//
-//        CategoryResponse categoryResponse = client.categoryResponseGET();
-//
-//        return categoryResponse;
-//    }
-//
-//    @Override
-//    public ProductResponse productDetailGET(long product_id1) {
-//
-//        ProductRetroImpl client = new ProductRetroImpl();
-//
-//        ProductResponse response = client.detailGET(product_id1);
-//
-//        return response;
-//    }
-//
-//
-//    /*time sale list by minho*/
-//	@Override
-//	public List<ProductTimeSale> timeSaleList2() {
-//		// TODO Auto-generated method stub
-//
-//		ProductRetroImpl PRI = new ProductRetroImpl();
-//
-//		List<ProductTimeSale> res = PRI.timeSaleList();
-//
-//		return res;
-//	}
-//
-//
-//	/*balgeure box by minho*/
-//	@Override
-//	public List<Product> balgeureBox2() {
-//		// TODO Auto-generated method stub
-//
-//		ProductRetroImpl PRI = new ProductRetroImpl();
-//
-//		List<Product> res = PRI.balgeureBox();
-//
-//		return res;
-//	}
-//
-//
-//	/*new product by minho*/
-//	@Override
-//	public BestResponse newProduct2() {
-//		// TODO Auto-generated method stub
-//
-//		ProductRetroImpl PRI = new ProductRetroImpl();
-//
-//		BestResponse res = PRI.newProduct();
-//
-//		return res;
-//	}
-//
-//
-//	/*category by minho*/
-//	@Override
-//	public CategoryResponse categoryList2() {
-//		// TODO Auto-generated method stub
-//
-//		ProductRetroImpl PRI = new ProductRetroImpl();
-//
-//		CategoryResponse res = PRI.categoryList();
-//
-//		return res;
-//	}
-//
-//
-//	/*sub category by minho*/
-//	@Override
-//	public CategoryResponse subCategory2(long menu_id) {
-//		// TODO Auto-generated method stub
-//
-//		ProductRetroImpl PRI = new ProductRetroImpl();
-//
-//		CategoryResponse res = PRI.subCategory(menu_id);
-//
-//		return res;
-//	}
-//
-//
-//	/*category list by minho*/
-//	@Override
-//	public PageProduct categoryList2(long parent, int page, long menu_id, int sort) {
-//		// TODO Auto-generated method stub
-//
-//		ProductRetroImpl PRI = new ProductRetroImpl();
-//
-//		PageProduct res = PRI.categoryList2(parent, page, menu_id, sort);
-//
-//		return res;
-//	}
-//
-//	@Override
-//	public RelationResponse relationProduct(long product_id) {
-//		// TODO Auto-generated method stub
-//
-//		ProductRetroImpl PRI = new ProductRetroImpl();
-//
-//		RelationResponse res = PRI.relationProduct2(product_id);
-//
-//		return res;
-//	}
-//
-//	@Override
-//	public CategoryResponse2 categoryList22() {
-//		// TODO Auto-generated method stub
-//
-//		ProductRetroImpl PRI = new ProductRetroImpl();
-//
-//		CategoryResponse2 res = PRI.categoryList2();
-//
-//		return res;
-//	}
-//
-//	@Override
-//	public PageBrand brandList2(int page, long brand_id, int sort) {
-//		// TODO Auto-generated method stub
-//
-//		ProductRetroImpl PRI = new ProductRetroImpl();
-//
-//		PageBrand res = PRI.brandList(page, brand_id, sort);
-//
-//		return res;
-//	}
+    public CategoryResponse2 categoryResponseSec() throws Exception {
+
+        return null;
+    }
+
 
 }

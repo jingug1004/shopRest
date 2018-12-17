@@ -10,6 +10,7 @@ public class Category {
 	private String menuParent;
 	private String menuDepth;
 	private String menuVisible;
+	private String menuSort;
 
 	private String status;     // HttpStatus
 	private String message;     // Http Default Message

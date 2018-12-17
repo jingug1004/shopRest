@@ -7,7 +7,7 @@ import java.util.List;
 @Data
 public class BestResponse {
 
-    private List firstBanner; // (Array[MainFirstBanner], optional): 상단 배너 ,
+    private List<MainFirstBanner> firstBanner; // (Array[MainFirstBanner], optional): 상단 배너 ,
     //	private String message; // (string, optional): 성공시 success 실패시 실패 내용 확인 ,
     private List<Product> productList; // (Array[Product], optional): 신규 또는 베스트 상품 ,
 
