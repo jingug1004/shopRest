@@ -15,11 +15,11 @@ import lombok.Data;
 public class CategoryLvResult {
 
     private String lv1;
-    private String lv1_id;
+    private String lv1Id;
     private String lv2;
-    private String lv2_id;
+    private String lv2Id;
     private String lv3;
-    private String lv3_id;
+    private String lv3Id;
 
     private String status;     // HttpStatus
     private String message;     // Http Default Message

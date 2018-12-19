@@ -16,7 +16,7 @@ import javax.inject.Inject;
 
 
 @RestController
-@Api(value = "ProductController", description = "상품 컨트롤러")
+@Api(value = "ProductController", description = "상품")
 public class ProductController {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
@@ -25,7 +25,7 @@ public class ProductController {
     private ProductService productService;
 
     @RequestMapping(value = "/bestResponseGET", method = RequestMethod.GET)
-    @ApiOperation(value = "bestResponseGET", notes = "상품 리스트를 보여준다(배너, 상품).")
+    @ApiOperation(value = "리스트", notes = "상품 리스트를 보여준다(배너, 상품).")
     public BestResponse bestResponseGET() throws Exception {
         BestResponse bestResponse = new BestResponse();
         bestResponse = productService.bestResponseGET();
@@ -33,15 +33,15 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/categoryResponseGET", method = RequestMethod.GET)
-    @ApiOperation(value = "categoryResponseGET", notes = "카테고리 리스트를 보여준다(배너, 상품).")
+    @ApiOperation(value = "카테고리", notes = "카테고리 리스트를 보여준다(배너, 상품).")
     public CategoryResponse categoryResponseGET() throws Exception {
         CategoryResponse categoryResponse = new CategoryResponse();
-//        categoryResponse = productService.bestResponseGET();
+        categoryResponse = productService.categoryResponseGET();
         return categoryResponse;
     }
 
     @RequestMapping(value = "/categoryListSec", method = RequestMethod.GET)
-    @ApiOperation(value = "categoryListSec", notes = "카테고리2 리스트를 보여준다(배너, 상품).")
+    @ApiOperation(value = "카테고리2", notes = "카테고리2 리스트를 보여준다(배너, 상품).")
     public CategoryResponse2 categoryResponseSec() throws Exception {
         CategoryResponse2 categoryResponse = new CategoryResponse2();
 //        categoryResponse = productService.bestResponseGET();

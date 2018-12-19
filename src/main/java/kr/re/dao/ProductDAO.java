@@ -81,6 +81,13 @@ public class ProductDAO {
     /* // 베스트 상품 가져오기 */
 
     /* 카테고리 가져오기 */
+    public List<Brand> brandGET() throws Exception {
+        return sqlSession.selectList(namespace + ".brandGET");
+    }
+
+    public List<CategoryLvResult> categoryLvResultGET() throws Exception {
+        return sqlSession.selectList(namespace + ".categoryLvResultGET");
+    }
 
 
     /* // 카테고리 가져오기 */

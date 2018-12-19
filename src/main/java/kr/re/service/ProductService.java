@@ -107,10 +107,27 @@ public class ProductService {
 
         CategoryResponse categoryResponse = new CategoryResponse();
 
+        List<Brand> brandList = new ArrayList<>();
+        List<CategoryLvResult> categoryLvResultList = new ArrayList<>();
+
+        brandList = productDAO.brandGET();
+        categoryLvResultList = productDAO.categoryLvResultGET();
+
+        for (int i = 0; i < categoryLvResultList.size(); i++) {
+
+
+        }
+
+        logger.info(categoryLvResultList.toString());
+
+        categoryResponse.setBrandList(productDAO.brandGET());
+        categoryResponse.setCategoryList(categoryLvResultList);
+
+
 //        categoryResponse.setBrandList();
 //        categoryResponse.setCategoryList();
 
-        return null;
+        return categoryResponse;
     }
 
     public CategoryResponse2 categoryResponseSec() throws Exception {

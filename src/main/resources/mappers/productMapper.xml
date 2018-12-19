@@ -61,8 +61,20 @@
 
     <select id="productDelivery" resultType="kr.re.vo.ProductDelivery">
         -- productDelivery @productMapper.xml
-        select * from app_product
+        select * from app_product WHERE 1 = 1
     </select>
+
+    <select id="brandGET" resultType="kr.re.vo.Brand">
+        -- brandGET @productMapper.xml
+        select * from app_brand WHERE 1 = 1
+    </select>
+
+    <select id="categoryLvResultGET" resultType="kr.re.vo.CategoryLvResult">
+        -- categoryLvResultGET @productMapper.xml
+        select menu_name AS lv3, CONVERT(menu_depth, char(10)) AS lv3Id
+        from app_category WHERE 1 = 1
+    </select>
+
 
 
 </mapper>
