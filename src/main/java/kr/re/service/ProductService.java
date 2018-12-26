@@ -115,6 +115,14 @@ public class ProductService {
 
         for (int i = 0; i < categoryLvResultList.size(); i++) {
 
+//            select * from app_category WHERE 1 = 1
+//;
+//
+//SELECT *, (SELECT * FROM app_category WHERE 1 = 1) FROM (select * from app_category WHERE 1 = 1) A WHERE 1 = 1 AND menu_depth = 4
+//;
+//
+//-- *, (SELECT * FROM app_category WHERE 1 = 1 AND menu_parent = A.menu_parent)
+
 
         }
 
