@@ -14,7 +14,7 @@ import lombok.Data;
 @Data
 public class ProductTimeSale {
 
-    private long endDate;
+    private String endDate;
     private Integer prodCount;
     private Product product;
     private String regDate;

@@ -15,7 +15,7 @@
     </select>
 
     <select id="productOneByParam" resultType="kr.re.vo.Product">
-        -- productOne @productMapper.xml
+        -- productOneByParam @productMapper.xml
         select * from app_product where 1 = 1
         AND product_id = #{productId}
     </select>
@@ -71,8 +71,43 @@
 
     <select id="categoryLvResultGET" resultType="kr.re.vo.CategoryLvResult">
         -- categoryLvResultGET @productMapper.xml
-        select menu_name AS lv3, CONVERT(menu_depth, char(10)) AS lv3Id
-        from app_category WHERE 1 = 1
+        select a.menu_id   AS lv1Id,
+               a.menu_name AS lv1,
+               b.menu_id   AS lv2Id,
+               b.menu_name AS lv2,
+               c.menu_id   AS lv3Id,
+               c.menu_name AS lv3
+        from app_category a,
+             app_category b,
+             app_category c
+        WHERE a.menu_id = b.menu_parent
+          AND b.menu_depth = 3
+          AND b.menu_id = c.menu_parent
+          AND c.menu_depth = 4
+    </select>
+
+    <select id="productOneByPrdId" resultType="kr.re.vo.Product">
+        -- productOneByPrdId @productMapper.xml
+        select * from app_product where 1 = 1
+        AND product_id = #{productId}
+    </select>
+
+    <select id="productItemByPrdId" resultType="kr.re.vo.ProductItem">
+        -- productItemByPrdId @productMapper.xml
+        select * from app_product_item where 1 = 1
+        AND product_id = #{productId}
+    </select>
+
+    <select id="productTimeSaleByPrdId" resultType="kr.re.vo.ProductTimeSale">
+        -- productTimeSaleByPrdId @productMapper.xml
+        select * from app_time_sale where 1 = 1
+        AND product_id = #{productId}
+    </select>
+
+    <select id="productCategoryByPrdId" resultType="kr.re.vo.ProductCategory">
+        -- productCategoryByPrdId @productMapper.xml
+        select * from app_product_category where 1 = 1
+        AND product_id = #{productId}
     </select>
 
 

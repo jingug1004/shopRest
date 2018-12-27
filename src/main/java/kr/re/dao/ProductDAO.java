@@ -88,9 +88,25 @@ public class ProductDAO {
     public List<CategoryLvResult> categoryLvResultGET() throws Exception {
         return sqlSession.selectList(namespace + ".categoryLvResultGET");
     }
-
-
     /* // 카테고리 가져오기 */
+
+    /* 상품 상세 정보 가져오기 */
+    public Product productOneByPrdId(int productId) throws Exception {
+        return sqlSession.selectOne(namespace + ".productOneByPrdId", productId);
+    }
+
+    public List<ProductItem> productItemByPrdId(int productId) throws Exception {
+        return sqlSession.selectList(namespace + ".productItemByPrdId", productId);
+    }
+
+    public ProductTimeSale productTimeSaleByPrdId(int productId) throws Exception {
+        return sqlSession.selectOne(namespace + ".productTimeSaleByPrdId", productId);
+    }
+
+    public List<ProductCategory> productCategoryByPrdId(int productId) throws Exception {
+        return sqlSession.selectList(namespace + ".productCategoryByPrdId", productId);
+    }
+    /* // 상품 상세 정보 가져오기 */
 
 
 }

@@ -104,44 +104,34 @@ public class ProductService {
     }
 
     public CategoryResponse categoryResponseGET() throws Exception {
-
         CategoryResponse categoryResponse = new CategoryResponse();
 
-        List<Brand> brandList = new ArrayList<>();
-        List<CategoryLvResult> categoryLvResultList = new ArrayList<>();
-
-        brandList = productDAO.brandGET();
-        categoryLvResultList = productDAO.categoryLvResultGET();
-
-        for (int i = 0; i < categoryLvResultList.size(); i++) {
-
-//            select * from app_category WHERE 1 = 1
-//;
-//
-//SELECT *, (SELECT * FROM app_category WHERE 1 = 1) FROM (select * from app_category WHERE 1 = 1) A WHERE 1 = 1 AND menu_depth = 4
-//;
-//
-//-- *, (SELECT * FROM app_category WHERE 1 = 1 AND menu_parent = A.menu_parent)
-
-
-        }
-
-        logger.info(categoryLvResultList.toString());
-
         categoryResponse.setBrandList(productDAO.brandGET());
-        categoryResponse.setCategoryList(categoryLvResultList);
-
-
-//        categoryResponse.setBrandList();
-//        categoryResponse.setCategoryList();
+        categoryResponse.setCategoryList(productDAO.categoryLvResultGET());
 
         return categoryResponse;
     }
 
+    /**
+     * 사용 안 함.
+     *
+     * @return
+     * @throws Exception
+     */
     public CategoryResponse2 categoryResponseSec() throws Exception {
 
         return null;
     }
 
+    public ProductResponse productResponseGET(int productId) throws Exception {
+        ProductResponse productResponse = new ProductResponse();
+
+        productResponse.setProduct(productDAO.productOneByPrdId(productId));
+        productResponse.setProductItem(productDAO.productItemByPrdId(productId));
+        productResponse.setProductTimeSale(productDAO.productTimeSaleByPrdId(productId));
+        productResponse.setProductCategory(productDAO.productCategoryByPrdId(productId));
+
+        return productResponse;
+    }
 
 }
