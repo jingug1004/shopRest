@@ -129,7 +129,13 @@ public class ProductService {
         productResponse.setProduct(productDAO.productOneByPrdId(productId));
         productResponse.setProductItem(productDAO.productItemByPrdId(productId));
         productResponse.setProductTimeSale(productDAO.productTimeSaleByPrdId(productId));
-        productResponse.setProductCategory(productDAO.productCategoryByPrdId(productId));
+
+        ProductCategory productCategory = new ProductCategory();
+        productCategory.setCategory(productDAO.productCategoryByPrdId(productId));
+        List<ProductCategory> productCategoryList = new ArrayList<>();
+        productCategoryList.add(productCategory);
+
+        productResponse.setProductCategory(productCategoryList);
 
         return productResponse;
     }

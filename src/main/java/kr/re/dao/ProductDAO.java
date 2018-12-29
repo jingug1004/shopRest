@@ -103,8 +103,8 @@ public class ProductDAO {
         return sqlSession.selectOne(namespace + ".productTimeSaleByPrdId", productId);
     }
 
-    public List<ProductCategory> productCategoryByPrdId(int productId) throws Exception {
-        return sqlSession.selectList(namespace + ".productCategoryByPrdId", productId);
+    public Category productCategoryByPrdId(int productId) throws Exception {
+        return sqlSession.selectOne(namespace + ".productCategoryByPrdId", productId);
     }
     /* // 상품 상세 정보 가져오기 */
 

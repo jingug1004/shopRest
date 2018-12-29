@@ -104,10 +104,11 @@
         AND product_id = #{productId}
     </select>
 
-    <select id="productCategoryByPrdId" resultType="kr.re.vo.ProductCategory">
+    <select id="productCategoryByPrdId" resultType="kr.re.vo.Category">
         -- productCategoryByPrdId @productMapper.xml
-        select * from app_product_category where 1 = 1
-        AND product_id = #{productId}
+        select *
+        from app_category
+        WHERE menu_id = (select menu_id from app_product_category WHERE product_id = #{productId})
     </select>
 
 
