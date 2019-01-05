@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by A on 2018-12-08 오후 10:44
@@ -108,5 +109,17 @@ public class ProductDAO {
     }
     /* // 상품 상세 정보 가져오기 */
 
+    /* 한 브랜드의 한 페이지 */
+    public List<Product> brandListProductGET(Map<String, Object> paramMap) throws Exception {
+        return sqlSession.selectList(namespace + ".brandListProductGET", paramMap);
+    }
+    /* // 한 브랜드의 한 페이지 */
+
+    /* 브랜드 등록 상품들 검색 */
+    public List<Product> productSearchGET(String searchName) throws Exception {
+        System.out.println("lll~~~ 03 : " + searchName);
+        return sqlSession.selectList(namespace + ".productSearchGET", searchName);
+    }
+    /* // 브랜드 등록 상품들 검색 */
 
 }

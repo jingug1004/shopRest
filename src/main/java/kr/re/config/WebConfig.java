@@ -114,11 +114,11 @@ public class WebConfig implements WebMvcConfigurer {
 
     private ApiInfo apiInfo() {
         return new ApiInfo(
-                "Hello REST API",
+                "Shopping Mall (client side) REST API",
                 "Some custom description of API.",
-                "API TOS",
+                "API TOS v1.0.0",
                 "Terms of service",
-                new Contact("야훔", "www.example.com", "myeaddress@company.com"),
+                new Contact("David Guetta", "www.example.com", "famofahn@naver.com"),
                 "License of API", "API license URL", Collections.emptyList());
     }
     /* // Swagger 설정 */

@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ProductService {
@@ -138,6 +140,61 @@ public class ProductService {
         productResponse.setProductCategory(productCategoryList);
 
         return productResponse;
+    }
+
+    public PageBrand brandListGET(int page, int brandId, Integer sort) throws Exception {
+        PageBrand pageBrand = new PageBrand();
+
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+
+        int multiplyPage = (page - 1) * 10;
+//        sort = 0;
+
+        paramMap.put("page", multiplyPage);
+        paramMap.put("brandId", brandId);
+        paramMap.put("sort", sort);
+
+        pageBrand.setContent(productDAO.brandListProductGET(paramMap));
+
+        return pageBrand;
+    }
+
+    public List<Product> productSearchGET(String searchName) throws Exception {
+        List<Product> products = new ArrayList<>();
+        products = productDAO.productSearchGET(searchName);
+
+        List<Product> prod = new ArrayList<>();
+        for (int i = 0; i < products.size(); i++) {
+            int brandId = products.get(i).getBrandId();
+            String sellerId = products.get(i).getSeller();
+            int deliveryId = products.get(i).getDeliveryId();
+
+            Product product = new Product();
+            product = productDAO.productOne(i);
+
+            Brand brand = new Brand();
+            brand = productDAO.brandOne(brandId);
+            product.setBrand(brand);
+
+            User user = new User();
+            user = productDAO.userOne(sellerId);
+            product.setSellerUser(user);
+
+            ProductDelivery productDelivery = new ProductDelivery();
+            productDelivery = productDAO.productDeliveryOne(deliveryId);
+            product.setProductDelivery(productDelivery);
+
+            DeliveryCompany deliveryCompany = new DeliveryCompany();
+            String companyString = product.getProductDelivery().getCompany();
+            int companyNo = Integer.parseInt(companyString);
+            deliveryCompany = productDAO.deliveryCompanyOne(companyNo);
+            productDelivery.setDeliveryCompany(deliveryCompany);
+            product.setProductDelivery(productDelivery);
+
+            prod.add(product);
+        }
+
+        return prod;
     }
 
 }

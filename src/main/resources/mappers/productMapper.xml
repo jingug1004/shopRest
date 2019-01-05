@@ -111,6 +111,28 @@
         WHERE menu_id = (select menu_id from app_product_category WHERE product_id = #{productId})
     </select>
 
+    <select id="brandListProductGET" resultType="kr.re.vo.Product">
+        -- brandListProductGET @productMapper.xml
+        select *
+        from app_product
+        where brand_id = #{brandId}
+        <if test="sort != 0">
+            Order by price desc
+        </if>
+        limit #{page}, 10
+    </select>
+
+    <select id="productSearchGET" resultType="kr.re.vo.Product">
+        -- productSearchGET @productMapper.xml
+        <![CDATA[
+        SELECT *
+        FROM app_product
+        WHERE PROD_NAME LIKE CONCAT('%', #{searchName}, '%')
+           OR PROD_DESC LIKE CONCAT('%', #{searchName}, '%')
+        ORDER BY REG_DATE desc
+        ]]>
+    </select>
+
 
 
 </mapper>
