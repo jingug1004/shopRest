@@ -80,7 +80,8 @@
         from app_category a,
              app_category b,
              app_category c
-        WHERE a.menu_id = b.menu_parent
+        WHERE 1 = 1
+          AND a.menu_id = b.menu_parent
           AND b.menu_depth = 3
           AND b.menu_id = c.menu_parent
           AND c.menu_depth = 4
@@ -108,14 +109,16 @@
         -- productCategoryByPrdId @productMapper.xml
         select *
         from app_category
-        WHERE menu_id = (select menu_id from app_product_category WHERE product_id = #{productId})
+        WHERE 1 = 1
+        AND menu_id = (select menu_id from app_product_category WHERE product_id = #{productId})
     </select>
 
     <select id="brandListProductGET" resultType="kr.re.vo.Product">
         -- brandListProductGET @productMapper.xml
         select *
         from app_product
-        where brand_id = #{brandId}
+        where 1 = 1
+        AND brand_id = #{brandId}
         <if test="sort != 0">
             Order by price desc
         </if>
@@ -127,10 +130,28 @@
         <![CDATA[
         SELECT *
         FROM app_product
-        WHERE PROD_NAME LIKE CONCAT('%', #{searchName}, '%')
+        WHERE 1 = 1
+          AND PROD_NAME LIKE CONCAT('%', #{searchName}, '%')
            OR PROD_DESC LIKE CONCAT('%', #{searchName}, '%')
         ORDER BY REG_DATE desc
         ]]>
+    </select>
+
+    <select id="productTimeSaleOneGET" resultType="kr.re.vo.ProductTimeSale">
+        -- productTimeSaleOneGET @productMapper.xml
+        select *
+        from app_time_sale
+        WHERE 1 = 1
+        ORDER BY REG_DATE desc
+        LIMIT #{rownum}, 1
+    </select>
+
+    <select id="productTimeSaleListGET" resultType="kr.re.vo.ProductTimeSale">
+        -- productTimeSaleListGET @productMapper.xml
+        select *
+        from app_time_sale
+        WHERE 1 = 1
+        ORDER BY REG_DATE desc
     </select>
 
 

@@ -68,6 +68,7 @@ public class ProductService {
             mainFirstBanner.add(mainFirstBannerOne);
         }
 
+        /* fori Product Case.01 */
         List<Product> prod = new ArrayList<>();
         for (int i = 0; i < productList.size(); i++) {
             int brandId = productList.get(i).getBrandId();
@@ -98,6 +99,7 @@ public class ProductService {
 
             prod.add(product);
         }
+        /* // fori Product Case.01 */
 
         bestResponse.setFirstBanner(mainFirstBanner);
         bestResponse.setProductList(prod);
@@ -160,9 +162,13 @@ public class ProductService {
     }
 
     public List<Product> productSearchGET(String searchName) throws Exception {
+        List<ProductTimeSale> productTimeSale = new ArrayList<>();
+        productTimeSale = productDAO.productTimeSaleListGET();
+
         List<Product> products = new ArrayList<>();
         products = productDAO.productSearchGET(searchName);
 
+        /* fori Product Case.01 */
         List<Product> prod = new ArrayList<>();
         for (int i = 0; i < products.size(); i++) {
             int brandId = products.get(i).getBrandId();
@@ -195,6 +201,55 @@ public class ProductService {
         }
 
         return prod;
+
+        /* // fori Product Case.01 */
+    }
+
+    public List<ProductTimeSale> productTimeSaleListGET() throws Exception {
+        List<ProductTimeSale> products = new ArrayList<>();
+        products = productDAO.productTimeSaleListGET();
+
+        /* fori Product Case.02 */
+        /* ToDo: 190110 DB 성능 개선 필요함. 이상은 없지만 너무 느림. */
+        List<ProductTimeSale> listProductTimeSale = new ArrayList<>();
+        for (int i = 0; i < products.size(); i++) {
+            Product product = new Product();
+            ProductTimeSale proTimSal = new ProductTimeSale();
+            proTimSal = productDAO.productTimeSaleOneGET(i);
+
+            int tem = products.get(i).getProductId();
+            product = productDAO.productOneByPrdId(tem);
+
+            int brandId = product.getBrandId();
+            String sellerId = product.getSeller();
+            int deliveryId = product.getDeliveryId();
+
+            Brand brand = new Brand();
+            brand = productDAO.brandOne(brandId);
+            product.setBrand(brand);
+
+            User user = new User();
+            user = productDAO.userOne(sellerId);
+            product.setSellerUser(user);
+
+            ProductDelivery productDelivery = new ProductDelivery();
+            productDelivery = productDAO.productDeliveryOne(deliveryId);
+            product.setProductDelivery(productDelivery);
+
+            DeliveryCompany deliveryCompany = new DeliveryCompany();
+            String companyString = product.getProductDelivery().getCompany();
+            int companyNo = Integer.parseInt(companyString);
+            deliveryCompany = productDAO.deliveryCompanyOne(companyNo);
+            productDelivery.setDeliveryCompany(deliveryCompany);
+            product.setProductDelivery(productDelivery);
+
+            proTimSal.setProduct(product);
+
+            listProductTimeSale.add(proTimSal);
+        }
+
+        return listProductTimeSale;
+        /* // fori Product Case.02 */
     }
 
 }

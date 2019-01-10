@@ -117,9 +117,22 @@ public class ProductDAO {
 
     /* 브랜드 등록 상품들 검색 */
     public List<Product> productSearchGET(String searchName) throws Exception {
-        System.out.println("lll~~~ 03 : " + searchName);
         return sqlSession.selectList(namespace + ".productSearchGET", searchName);
     }
     /* // 브랜드 등록 상품들 검색 */
+
+    /* 세일(할인) 남은 시간 */
+    public ProductTimeSale productTimeSaleOneGET(int rownum) throws Exception {
+        return sqlSession.selectOne(namespace + ".productTimeSaleOneGET", rownum);
+    }
+
+    public List<ProductTimeSale> productTimeSaleListGET() throws Exception {
+        return sqlSession.selectList(namespace + ".productTimeSaleListGET");
+    }
+
+
+
+
+    /* // 세일(할인) 남은 시간 */
 
 }

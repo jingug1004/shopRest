@@ -69,8 +69,16 @@ public class ProductController {
     public List<Product> productSearchGET(@RequestParam String searchName) throws Exception {
         List<Product> products = new ArrayList<>();
         products = productService.productSearchGET(searchName);
-        System.out.println("lll~~~ : " + products);
         return products;
+    }
+
+    @RequestMapping(value = "/product/time", method = RequestMethod.GET)
+    @ApiOperation(value = "세일(할인) 남은 시간", notes = "세일(할인) 상품들을 모두 보여준다")
+    public List<ProductTimeSale> productTimeSaleListGET() throws Exception {
+        List<ProductTimeSale> productTimeSales = new ArrayList<>();
+        productTimeSales = productService.productTimeSaleListGET();
+//        System.out.println("lll~~~ : " + productTimeSales);
+        return productTimeSales;
     }
 
 }

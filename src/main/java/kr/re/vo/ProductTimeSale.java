@@ -16,7 +16,8 @@ public class ProductTimeSale {
 
     private String endDate;
     private Integer prodCount;
-    private Product product;
+    private Product product; // Product
+    private int productId;
     private String regDate;
     private Integer rnCount;
     private Integer saleId;
