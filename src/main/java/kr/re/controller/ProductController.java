@@ -77,7 +77,6 @@ public class ProductController {
     public List<ProductTimeSale> productTimeSaleListGET() throws Exception {
         List<ProductTimeSale> productTimeSales = new ArrayList<>();
         productTimeSales = productService.productTimeSaleListGET();
-//        System.out.println("lll~~~ : " + productTimeSales);
         return productTimeSales;
     }
 
